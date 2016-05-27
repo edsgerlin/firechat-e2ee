@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sparkle Encryption Web Test</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+
+  <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+  <script type='text/javascript' src='js/knockout-3.4.0.js'></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <script type="text/javascript">
+    // Initialize Firebase
+  'use strict';
+  const config = {
+    apiKey: 'AIzaSyBgZ36u6J2Y6LPYRLG0Y91UDt6ib0xGXz0',
+    authDomain: 'amber-torch-1508.firebaseapp.com',
+    databaseURL: 'https://amber-torch-1508.firebaseio.com',
+    storageBucket: 'amber-torch-1508.appspot.com',
+  };
+  firebase.initializeApp(config);
+  </script>
+  <script type="text/javascript" src="js/base64js.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          Your Sparkle ID:
+          <input class="form-control" id="sparkle-id" readonly="readonly" />
+        </p>
+        <p>
+          Your Public Key:
+          <textarea class="form-control" id="public-key" rows="5"></textarea>
+        </p>
+        <p>
+          Your Private Key:
+          <textarea class="form-control" id="private-key" rows="5"></textarea>
+        </p>
+        <button class="btn btn-default" id="generate-key" type="button" onclick="generateRSAKey()">Generate Key</button>
+        <button class="btn btn-default" id="load-key" type="button" onclick="loadRSAKey()">Load Key</button>
+      </div>
+      <div class="col-md-6">
+        <p>
+          Receiver's Sparkle ID:
+          <input class="form-control" id="receiver-id" />
+        </p>
+        <p>
+          Receiver's Public Key:
+          <textarea class="form-control" id="receiver-public" rows="5"></textarea>
+        </p>
+        <p>
+          Your message to be sent:
+          <textarea class="form-control" id="message-to-be-sent" rows="5"></textarea>
+        </p>
+        <button class="btn btn-default" id="get-key" type="button" onclick="getRSAKey()">Get Receiver's Public Key</button>
+        <button class="btn btn-default" id="send-message" type="button" onclick="sendMessage()">Send Message</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
