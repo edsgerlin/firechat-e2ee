@@ -8,11 +8,8 @@
   <title>Sparkle Encryption Web Test</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-
-
   <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
   <script type='text/javascript' src='js/knockout-3.4.0.js'></script>
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
   <script type="text/javascript">
     // Initialize Firebase
@@ -26,47 +23,54 @@
   firebase.initializeApp(config);
   </script>
   <script type="text/javascript" src="js/base64js.min.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
-
+  <script type="text/javascript" src="js/utils.js"></script>
 </head>
 
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div id="user" class="col-md-6">
         <p>
           Your Sparkle ID:
-          <input class="form-control" id="sparkle-id" readonly="readonly" />
+          <input class="form-control" readonly="readonly" data-bind="value: id" />
         </p>
         <p>
           Your Public Key:
-          <textarea class="form-control" id="public-key" rows="5"></textarea>
+          <textarea class="form-control" readonly="readonly" rows="5" data-bind="value: publicKey"></textarea>
         </p>
         <p>
           Your Private Key:
-          <textarea class="form-control" id="private-key" rows="5"></textarea>
+          <textarea class="form-control" readonly="readonly" rows="5" data-bind="value: privateKey"></textarea>
         </p>
-        <button class="btn btn-default" id="generate-key" type="button" onclick="generateRSAKey()">Generate Key</button>
-        <button class="btn btn-default" id="load-key" type="button" onclick="loadRSAKey()">Load Key</button>
+        <button class="btn btn-default" type="button" data-bind="disable: generated, text: generated() ? 'Key Pair Generated' : 'Generate Key Pair', click: generateRSAKey"></button>
+        <button class="btn btn-default" type="button" data-bind="disable: uploaded, visible: generated, text: uploaded() ? 'Public Key Uploaded' : 'Upload Public Key', click: upload"></button>
+
       </div>
-      <div class="col-md-6">
+      <div id="receiver" class="col-md-6" data-bind="visible: user.uploaded">
         <p>
           Receiver's Sparkle ID:
-          <input class="form-control" id="receiver-id" />
+          <input class="form-control" data-bind="value: id, disable: downloading" />
         </p>
         <p>
           Receiver's Public Key:
-          <textarea class="form-control" id="receiver-public" rows="5"></textarea>
+          <textarea class="form-control" readonly="readonly" rows="5" data-bind="value: publicKey"></textarea>
         </p>
         <p>
           Your message to be sent:
-          <textarea class="form-control" id="message-to-be-sent" rows="5"></textarea>
+          <textarea class="form-control" rows="5" data-bind="value: message"></textarea>
         </p>
-        <button class="btn btn-default" id="get-key" type="button" onclick="getRSAKey()">Get Receiver's Public Key</button>
-        <button class="btn btn-default" id="send-message" type="button" onclick="sendMessage()">Send Message</button>
+        <button class="btn btn-default" type="button" data-bind="click: download, disable: downloading ">Get Receiver's Public Key</button>
+        <button class="btn btn-default" type="button" data-bind="click: sendMessage">Send Message</button>
       </div>
     </div>
+    <div id="message-list" class="list-group" data-bind="foreach: messages">
+      <button type="button" class="list-group-item" data-bind="text: $data"></button>
+    </div>
   </div>
+
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+
 </body>
 
 </html>
