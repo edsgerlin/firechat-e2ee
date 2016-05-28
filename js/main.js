@@ -5,3 +5,5 @@ const user = new UserViewModel(messageList);
 ko.applyBindings(user, document.getElementById('user'));
 const receiver = new ReceiverViewModel(user);
 ko.applyBindings(receiver, document.getElementById('receiver'));
+
+ko.applyBindings(new MessageViewModel, document.getElementById('message-view'));

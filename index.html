@@ -60,12 +60,40 @@
           <textarea class="form-control" rows="5" data-bind="value: message"></textarea>
         </p>
         <button class="btn btn-default" type="button" data-bind="click: download, disable: downloading ">Get Receiver's Public Key</button>
-        <button class="btn btn-default" type="button" data-bind="click: sendMessage">Send Message</button>
+        <button class="btn btn-default" type="button" data-bind="click: sendMessage, enable: downloaded() && !sending()">Send Encrypted Message</button>
       </div>
     </div>
     <div id="message-list" class="list-group" data-bind="foreach: messages">
-      <button type="button" class="list-group-item" data-bind="text: $data"></button>
+      <button type="button" class="list-group-item" data-bind="text: $data.plaintext, click: $parent.showDetail"></button>
     </div>
+    <div id="message-view" class="col-md-12">
+      <p>
+        Sender:
+        <input class="form-control" readonly="readonly" data-bind="value: sender" />
+      </p>
+      <p>
+        Receiver:
+        <input class="form-control" readonly="readonly" data-bind="value: receiver" />
+      </p>
+      <p>
+        Key:
+        <input class="form-control" readonly="readonly" data-bind="value: key" />
+      </p>
+      <p>
+        IV:
+        <input class="form-control" readonly="readonly" data-bind="value: iv" />
+      </p>
+      <p>
+        Plaintext:
+        <input class="form-control" readonly="readonly" data-bind="value: plaintext" />
+      </p>
+      <p>
+        Ciphertext:
+        <input class="form-control" readonly="readonly" data-bind="value: ciphertext" />
+      </p>
+    </div>
+
+
   </div>
 
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
